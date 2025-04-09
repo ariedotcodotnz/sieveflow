@@ -2,7 +2,8 @@ import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import { 
   X, Plus, Code, Trash2, ArrowDown, ArrowUp, CheckSquare, Square,
   Copy, HelpCircle, AlertCircle, Info, ChevronDown, ChevronRight, FileText,
-  AlertTriangle, CopyCheck, Download, RefreshCw, Upload, Clipboard, Save
+  AlertTriangle, CopyCheck, Download, RefreshCw, Upload, Clipboard, Save,
+  CheckCircle
 } from 'lucide-react';
 
 // Helper to create a unique ID
