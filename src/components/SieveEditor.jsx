@@ -6,6 +6,9 @@ import {
   CheckCircle, Edit, PlayCircle, StopCircle, PlusSquare, RotateCcw
 } from 'lucide-react';
 
+// Import additional required hooks if needed
+// Ensure we have access to all the necessary React features
+
 // Helper to create a unique ID
 const createId = () => `id_${Math.random().toString(36).substring(2, 11)}`;
 
@@ -1945,7 +1948,7 @@ const SieveEditor = () => {
 };
 
 // Component to build a condition
-const ConditionBuilder = React.memo(({ condition, onChange, extensions }) => {
+const ConditionBuilder = React.memo(function ConditionBuilder({ condition, onChange, extensions }) {
   // Get help text for current condition type
   const conditionTypeHelp = HELP_TEXT.conditionTypes[condition.type] || "Configure what to check in this condition";
 
@@ -2090,7 +2093,7 @@ const ConditionBuilder = React.memo(({ condition, onChange, extensions }) => {
 });
 
 // Component to build an action
-const ActionBuilder = React.memo(({ action, onChange, extensions }) => {
+const ActionBuilder = React.memo(function ActionBuilder({ action, onChange, extensions }) {
   // Get help text for current action type
   const actionTypeHelp = HELP_TEXT.actionTypes[action.type] || "Configure what happens when this rule matches";
 
