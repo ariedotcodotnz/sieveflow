@@ -2088,10 +2088,232 @@ const ConditionBuilder = React.memo(function ConditionBuilder({ condition, onCha
               />
             </>
         )}
+
+        {condition.type === 'address' && (
+            <>
+              <div className="flex items-center col-span-1">
+                <select
+                    value={condition.matchType}
+                    onChange={(e) => onChange({ matchType: e.target.value })}
+                    className="px-2 py-1 border rounded text-sm w-full"
+                    aria-label="Match type"
+                >
+                  <option value=":is">is</option>
+                  <option value=":contains">contains</option>
+                  <option value=":matches">matches</option>
+                </select>
+                <HelpTooltip
+                    text={HELP_TEXT.matchTypes[condition.matchType?.replace(':', '') || 'is']}
+                    position="right"
+                >
+                  <button aria-label="Match type help" className="ml-1 text-gray-400 hover:text-blue-500">
+                    <HelpCircle className="h-4 w-4" />
+                  </button>
+                </HelpTooltip>
+              </div>
+
+              <div className="flex items-center col-span-1">
+                <select
+                    value={condition.addressPart}
+                    onChange={(e) => onChange({ addressPart: e.target.value })}
+                    className="px-2 py-1 border rounded text-sm w-full"
+                    aria-label="Address part"
+                >
+                  <option value=":all">all</option>
+                  <option value=":localpart">local part</option>
+                  <option value=":domain">domain</option>
+                </select>
+                <HelpTooltip
+                    text={HELP_TEXT.addressParts[condition.addressPart?.replace(':', '') || 'all']}
+                    position="right"
+                >
+                  <button aria-label="Address part help" className="ml-1 text-gray-400 hover:text-blue-500">
+                    <HelpCircle className="h-4 w-4" />
+                  </button>
+                </HelpTooltip>
+              </div>
+
+              <input
+                  type="text"
+                  value={condition.header}
+                  onChange={(e) => onChange({ header: e.target.value })}
+                  placeholder="Header (From, To, Cc)"
+                  className="px-2 py-1 border rounded text-sm col-span-1"
+                  aria-label="Address header"
+              />
+
+              <input
+                  type="text"
+                  value={Array.isArray(condition.keys) ? condition.keys[0] : condition.keys || ''}
+                  onChange={(e) => onChange({ keys: [e.target.value] })}
+                  placeholder="Address"
+                  className="px-2 py-1 border rounded text-sm col-span-1"
+                  aria-label="Address value"
+              />
+            </>
+        )}
+
+        {condition.type === 'envelope' && (
+            <>
+              <select
+                  value={condition.matchType}
+                  onChange={(e) => onChange({ matchType: e.target.value })}
+                  className="px-2 py-1 border rounded text-sm col-span-1"
+                  aria-label="Match type"
+              >
+                <option value=":is">is</option>
+                <option value=":contains">contains</option>
+                <option value=":matches">matches</option>
+              </select>
+
+              <select
+                  value={condition.addressPart}
+                  onChange={(e) => onChange({ addressPart: e.target.value })}
+                  className="px-2 py-1 border rounded text-sm col-span-1"
+                  aria-label="Address part"
+              >
+                <option value=":all">all</option>
+                <option value=":localpart">local part</option>
+                <option value=":domain">domain</option>
+              </select>
+
+              <select
+                  value={condition.part}
+                  onChange={(e) => onChange({ part: e.target.value })}
+                  className="px-2 py-1 border rounded text-sm col-span-1"
+                  aria-label="Envelope part"
+              >
+                <option value="from">from</option>
+                <option value="to">to</option>
+              </select>
+
+              <input
+                  type="text"
+                  value={Array.isArray(condition.keys) ? condition.keys[0] : condition.keys || ''}
+                  onChange={(e) => onChange({ keys: [e.target.value] })}
+                  placeholder="Address"
+                  className="px-2 py-1 border rounded text-sm col-span-1"
+                  aria-label="Envelope address"
+              />
+            </>
+        )}
+
+        {condition.type === 'size' && (
+            <>
+              <div className="flex items-center col-span-1">
+                <select
+                    value={condition.operator}
+                    onChange={(e) => onChange({ operator: e.target.value })}
+                    className="px-2 py-1 border rounded text-sm w-full"
+                    aria-label="Size operator"
+                >
+                  <option value=":over">over</option>
+                  <option value=":under">under</option>
+                </select>
+                <HelpTooltip text="Whether the message size should be larger or smaller than the specified size">
+                  <button aria-label="Size operator help" className="ml-1 text-gray-400 hover:text-blue-500">
+                    <HelpCircle className="h-4 w-4" />
+                  </button>
+                </HelpTooltip>
+              </div>
+
+              <div className="flex items-center col-span-1">
+                <input
+                    type="text"
+                    value={condition.size}
+                    onChange={(e) => onChange({ size: e.target.value })}
+                    placeholder="Size (e.g., 100K)"
+                    className="px-2 py-1 border rounded text-sm w-full"
+                    aria-label="Message size"
+                />
+                <HelpTooltip text="Size can be specified in K (kilobytes), M (megabytes), or G (gigabytes), e.g., 10K, 2M">
+                  <button aria-label="Size format help" className="ml-1 text-gray-400 hover:text-blue-500">
+                    <HelpCircle className="h-4 w-4" />
+                  </button>
+                </HelpTooltip>
+              </div>
+            </>
+        )}
+
+        {condition.type === 'body' && (
+            <>
+              <div className="flex items-center col-span-1">
+                <select
+                    value={condition.matchType}
+                    onChange={(e) => onChange({ matchType: e.target.value })}
+                    className="px-2 py-1 border rounded text-sm w-full"
+                    aria-label="Match type"
+                >
+                  <option value=":is">is</option>
+                  <option value=":contains">contains</option>
+                  <option value=":matches">matches</option>
+                </select>
+                <HelpTooltip
+                    text={HELP_TEXT.matchTypes[condition.matchType?.replace(':', '') || 'is']}
+                    position="right"
+                >
+                  <button aria-label="Match type help" className="ml-1 text-gray-400 hover:text-blue-500">
+                    <HelpCircle className="h-4 w-4" />
+                  </button>
+                </HelpTooltip>
+              </div>
+
+              <div className="flex items-center col-span-1">
+                <select
+                    value={condition.transform}
+                    onChange={(e) => onChange({ transform: e.target.value })}
+                    className="px-2 py-1 border rounded text-sm w-full"
+                    aria-label="Body transform"
+                >
+                  <option value=":text">text</option>
+                  <option value=":raw">raw</option>
+                  <option value=":content">content</option>
+                </select>
+                <HelpTooltip
+                    text={HELP_TEXT.bodyTransforms[condition.transform?.replace(':', '') || 'text']}
+                    position="right"
+                >
+                  <button aria-label="Body transform help" className="ml-1 text-gray-400 hover:text-blue-500">
+                    <HelpCircle className="h-4 w-4" />
+                  </button>
+                </HelpTooltip>
+              </div>
+
+              <input
+                  type="text"
+                  value={Array.isArray(condition.keys) ? condition.keys[0] : condition.keys || ''}
+                  onChange={(e) => onChange({ keys: [e.target.value] })}
+                  placeholder="Text to match"
+                  className="px-2 py-1 border rounded text-sm col-span-2"
+                  aria-label="Body text to match"
+              />
+            </>
+        )}
+
+        {condition.type === 'exists' && (
+            <>
+              <div className="flex items-center col-span-2">
+                <input
+                    type="text"
+                    value={Array.isArray(condition.header) ? condition.header.join(', ') : condition.header || ''}
+                    onChange={(e) => onChange({ header: e.target.value.split(/\s*,\s*/) })}
+                    placeholder="Header name(s)"
+                    className="px-2 py-1 border rounded text-sm w-full"
+                    aria-label="Headers to check for existence"
+                />
+                <HelpTooltip text="Checks if these headers exist in the message. Multiple headers can be separated by commas">
+                  <button aria-label="Exists condition help" className="ml-1 text-gray-400 hover:text-blue-500">
+                    <HelpCircle className="h-4 w-4" />
+                  </button>
+                </HelpTooltip>
+              </div>
+            </>
+        )}
       </div>
   );
 });
 
+// Component to build an action
 // Component to build an action
 const ActionBuilder = React.memo(function ActionBuilder({ action, onChange, extensions }) {
   // Get help text for current action type
@@ -2373,6 +2595,48 @@ const ActionBuilder = React.memo(function ActionBuilder({ action, onChange, exte
                     aria-label="Add as last header"
                 />
                 <span className="text-sm">Add Last</span>
+              </label>
+            </>
+        )}
+
+        {action.type === 'deleteheader' && (
+            <>
+              <input
+                  type="text"
+                  value={action.parameters?.name || ''}
+                  onChange={(e) => updateParameters({ name: e.target.value })}
+                  placeholder="Header name"
+                  className="px-2 py-1 border rounded text-sm col-span-1"
+                  aria-label="Header name to delete"
+              />
+
+              <input
+                  type="text"
+                  value={action.parameters?.value || ''}
+                  onChange={(e) => updateParameters({ value: e.target.value })}
+                  placeholder="Header value (optional)"
+                  className="px-2 py-1 border rounded text-sm col-span-1"
+                  aria-label="Header value to match (optional)"
+              />
+
+              <input
+                  type="text"
+                  value={action.parameters?.index || ''}
+                  onChange={(e) => updateParameters({ index: e.target.value })}
+                  placeholder="Index (optional)"
+                  className="px-2 py-1 border rounded text-sm col-span-1"
+                  aria-label="Header index (optional)"
+              />
+
+              <label className="flex items-center col-span-1">
+                <input
+                    type="checkbox"
+                    checked={action.parameters?.last || false}
+                    onChange={(e) => updateParameters({ last: e.target.checked })}
+                    className="mr-1"
+                    aria-label="Delete last occurrence"
+                />
+                <span className="text-sm">Last</span>
               </label>
             </>
         )}
