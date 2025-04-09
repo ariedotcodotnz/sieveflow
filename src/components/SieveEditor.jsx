@@ -2697,8 +2697,6 @@ const ActionBuilder = React.memo(function ActionBuilder({ action, onChange, exte
   );
 });
 
-export default SieveEditor;
-
 {action.type === 'deleteheader' && (
     <>
       <input
@@ -2961,3 +2959,5 @@ export default SieveEditor;
       </div>
     </>
 )}
+
+export default SieveEditor;
